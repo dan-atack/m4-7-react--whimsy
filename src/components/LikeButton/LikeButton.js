@@ -1,5 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import PoppingCircle from '../PoppingCircle';
+import ScaleIn from '../ScaleIn';
+import { range } from '../../utils';
+import ConfettiPiece from '../ConfettiPiece';
+import Particle from '../Particle';
 
 import Heart from './Heart';
 
@@ -10,7 +15,23 @@ const LikeButton = ({ isLiked, size = 40 }) => {
 
   return (
     <Wrapper style={{ width: size, height: size }}>
-      <Heart width={heartSize} isToggled={isLiked} />
+      {isLiked && <PoppingCircle size={size} color='#E790F7' />}
+      {isLiked &&
+        range(12).map((i, idx) => (
+          <ConfettiPiece
+            key={i}
+            color={PARTICLE_COLORS[idx % 5]}
+            angle={360 * (i / 12)}
+            distance={(idx % 5) * 20}
+          />
+        ))}
+      {isLiked ? (
+        <ScaleIn>
+          <Heart width={heartSize} isToggled={isLiked} />
+        </ScaleIn>
+      ) : (
+        <Heart width={heartSize} isToggled={isLiked} />
+      )}
     </Wrapper>
   );
 };

@@ -12,6 +12,11 @@ const propTypes = {
   username: PropTypes.string.isRequired,
   avatarSrc: PropTypes.string.isRequired,
   tweetContents: PropTypes.string.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  numOfRetweets: PropTypes.number.isRequired,
+  numOfLikes: PropTypes.number.isRequired,
+  isLikedByCurrentUser: PropTypes.bool.isRequired,
+  isRetweetedByCurrentUser: PropTypes.bool.isRequired
 };
 
 const Tweet = ({
@@ -38,6 +43,13 @@ const Tweet = ({
       </Header>
 
       <TweetContents>{tweetContents}</TweetContents>
+
+      <Timestamp>{timestamp}</Timestamp>
+
+      <Divider />
+
+      <Stats>{numOfRetweets} Retweet{numOfRetweets != 1 ? "s": ""}</Stats>
+      <Stats>{numOfLikes} Like{numOfLikes != 1 ? "s" : ""}</Stats>
 
       <Divider />
 
@@ -137,12 +149,13 @@ const Timestamp = styled.div`
 const Divider = styled.div`
   height: 1px;
   background: rgb(230, 236, 240);
+  margin: 16px 0px;
 `;
 
-const Stats = styled.div`
-  display: flex;
+const Stats = styled.span`
   align-items: center;
   height: 48px;
+  margin: 16px 32px 16px 8px;
 `;
 
 const Actions = styled.div`
